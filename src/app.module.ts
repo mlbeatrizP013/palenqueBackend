@@ -3,6 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsuarioModule } from './usuario/usuario.module';
+import { AdministradorModule } from './administrador/administrador.module';
+import { CategoriaModule } from './categoria/categoria.module';
+import { BebidasModule } from './bebidas/bebidas.module';
+import { DiaCataModule } from './dia-cata/dia-cata.module';
+import { InfoHomeModule } from './info-home/info-home.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -14,7 +19,7 @@ import { UsuarioModule } from './usuario/usuario.module';
     database: 'palenque',
     autoLoadEntities: true,
     synchronize: true,
-  }), UsuarioModule],
+  }), UsuarioModule, AdministradorModule, CategoriaModule, BebidasModule, DiaCataModule, InfoHomeModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -1,5 +1,6 @@
 
 import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { DiaCata } from 'src/dia-cata/entities/dia-cata.entity';
 export class CreateUsuarioDto {
     @IsString()
     nome: string;
@@ -12,4 +13,6 @@ export class CreateUsuarioDto {
 
     @IsString()
     genero: string;
+    @IsNumber()
+    Idcata: DiaCata
 }

@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { DiaCata } from "src/dia-cata/entities/dia-cata.entity";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Usuario {
@@ -19,4 +20,6 @@ export class Usuario {
 
   @CreateDateColumn()
   CreatedAt: Date;
+  @ManyToOne(()=> DiaCata, (diaCata)=> diaCata.usuarios)
+  diaCata: DiaCata;
 }
