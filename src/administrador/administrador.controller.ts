@@ -7,27 +7,27 @@ import { UpdateAdministradorDto } from './dto/update-administrador.dto';
 export class AdministradorController {
   constructor(private readonly administradorService: AdministradorService) {}
 
-  @Post()
+  @Post("create")
   create(@Body() createAdministradorDto: CreateAdministradorDto) {
     return this.administradorService.create(createAdministradorDto);
   }
 
-  @Get()
+  @Get("findAll")
   findAll() {
     return this.administradorService.findAll();
   }
 
-  @Get(':id')
+  @Get('findOne/:id')
   findOne(@Param('id') id: string) {
     return this.administradorService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Patch('update/:id')
   update(@Param('id') id: string, @Body() updateAdministradorDto: UpdateAdministradorDto) {
     return this.administradorService.update(+id, updateAdministradorDto);
   }
 
-  @Delete(':id')
+  @Delete('remove/:id')
   remove(@Param('id') id: string) {
     return this.administradorService.remove(+id);
   }
