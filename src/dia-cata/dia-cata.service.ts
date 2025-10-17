@@ -1,26 +1,35 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { CreateDiaCataDto } from './dto/create-dia-cata.dto';
 import { UpdateDiaCataDto } from './dto/update-dia-cata.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { DiaCata } from './entities/dia-cata.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class DiaCataService {
-  create(createDiaCataDto: CreateDiaCataDto) {
-    return 'This action adds a new diaCata';
+  @InjectRepository(DiaCata)
+  private readonly diaCataRepository: Repository<DiaCata>;
+  async create(createDiaCataDto: CreateDiaCataDto) {
+    const diaCata = this.diaCataRepository.create(createDiaCataDto);
+    return await this.diaCataRepository.save(diaCata);
   }
 
-  findAll() {
-    return `This action returns all diaCata`;
+  async findAll() {
+    return await this.diaCataRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} diaCata`;
+  async findOne(id: number) {
+    return await this.diaCataRepository.findOne({ where: { id } });
   }
 
-  update(id: number, updateDiaCataDto: UpdateDiaCataDto) {
-    return `This action updates a #${id} diaCata`;
+  async update(id: number, updateDiaCataDto: UpdateDiaCataDto) {
+    await this.diaCataRepository.update(id, updateDiaCataDto);
+    return await this.diaCataRepository.findOne({ where: { id } });
   }
 
-  remove(id: number) {
+  async remove(id: number) {
+    await this.diaCataRepository.delete(id);
     return `This action removes a #${id} diaCata`;
   }
 }
