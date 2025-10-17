@@ -7,27 +7,27 @@ import { UpdateInfoHomeDto } from './dto/update-info-home.dto';
 export class InfoHomeController {
   constructor(private readonly infoHomeService: InfoHomeService) {}
 
-  @Post()
+  @Post("create")
   create(@Body() createInfoHomeDto: CreateInfoHomeDto) {
     return this.infoHomeService.create(createInfoHomeDto);
   }
 
-  @Get()
+  @Get("findAll")
   findAll() {
     return this.infoHomeService.findAll();
   }
 
-  @Get(':id')
+  @Get('findOne/:id')
   findOne(@Param('id') id: string) {
     return this.infoHomeService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Patch('update/:id')
   update(@Param('id') id: string, @Body() updateInfoHomeDto: UpdateInfoHomeDto) {
     return this.infoHomeService.update(+id, updateInfoHomeDto);
   }
 
-  @Delete(':id')
+  @Delete('remove/:id')
   remove(@Param('id') id: string) {
     return this.infoHomeService.remove(+id);
   }

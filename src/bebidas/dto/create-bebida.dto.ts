@@ -13,6 +13,6 @@ export class CreateBebidaDto {
     @IsNotEmpty()
     imagen: string;
     @IsNotEmpty()
-    categoriaId: Categoria;
+    categoriaId: number;
 
 }

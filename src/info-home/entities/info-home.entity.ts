@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class InfoHome {
@@ -13,7 +13,7 @@ export class InfoHome {
     @Column()
     imageUrl: string;
 
-    @Column()
+    @CreateDateColumn()
     createdAt: Date;
 
     

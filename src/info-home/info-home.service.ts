@@ -1,26 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { CreateInfoHomeDto } from './dto/create-info-home.dto';
 import { UpdateInfoHomeDto } from './dto/update-info-home.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { InfoHome } from './entities/info-home.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class InfoHomeService {
-  create(createInfoHomeDto: CreateInfoHomeDto) {
-    return 'This action adds a new infoHome';
+  @InjectRepository(InfoHome)
+  private readonly infoHomeRepository: Repository<InfoHome>;
+
+  async create(createInfoHomeDto: CreateInfoHomeDto) {
+    const infoHome = this.infoHomeRepository.create(createInfoHomeDto);
+    return await this.infoHomeRepository.save(infoHome);
   }
 
-  findAll() {
-    return `This action returns all infoHome`;
+  async findAll() {
+    return await this.infoHomeRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} infoHome`;
+  async findOne(id: number) {
+    return await this.infoHomeRepository.findOne({where: { id }});
   }
 
-  update(id: number, updateInfoHomeDto: UpdateInfoHomeDto) {
-    return `This action updates a #${id} infoHome`;
+  async update(id: number, updateInfoHomeDto: UpdateInfoHomeDto) {
+    await this.infoHomeRepository.update(id, updateInfoHomeDto);
+    return await this.infoHomeRepository.findOne({where: { id }});
   }
 
-  remove(id: number) {
+  async remove(id: number) {
+    await this.infoHomeRepository.delete(id);
     return `This action removes a #${id} infoHome`;
   }
 }

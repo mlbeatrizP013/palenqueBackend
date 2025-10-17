@@ -7,7 +7,6 @@ export class CreateInfoHomeDto {
     content: string;
     @IsNotEmpty()
     imageUrl: string
-    @IsNotEmpty()
-    createdAt: Date;
+    
     
 }
