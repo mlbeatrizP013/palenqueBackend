@@ -1,5 +1,6 @@
+import { Apartado } from "src/apartados/entities/apartado.entity";
 import { Categoria } from "src/categoria/entities/categoria.entity";
-import { Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Bebida {
@@ -17,7 +18,9 @@ export class Bebida {
     stock: number;
     @Column()
     imagen: string
-    @ManyToOne(()=> Categoria, (categoria)=> categoria.bebidas)
+    @ManyToOne(() => Categoria, (categoria) => categoria.bebidas)
     categoria: Categoria;
+    @OneToMany(() => Apartado, (apartado) => apartado.bebidasID)
+    apartado: Apartado[];
 
 }

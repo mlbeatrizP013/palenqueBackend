@@ -8,6 +8,7 @@ import { CategoriaModule } from './categoria/categoria.module';
 import { BebidasModule } from './bebidas/bebidas.module';
 import { DiaCataModule } from './dia-cata/dia-cata.module';
 import { InfoHomeModule } from './info-home/info-home.module';
+import { ApartadosModule } from './apartados/apartados.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -19,7 +20,7 @@ import { InfoHomeModule } from './info-home/info-home.module';
     database: 'palenque',
     autoLoadEntities: true,
     synchronize: true,
-  }), UsuarioModule, AdministradorModule, CategoriaModule, BebidasModule, DiaCataModule, InfoHomeModule],
+  }), UsuarioModule, AdministradorModule, CategoriaModule, BebidasModule, DiaCataModule, InfoHomeModule, ApartadosModule],
   controllers: [AppController],
   providers: [AppService],
 })
