@@ -1,35 +1,70 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Bebida } from './entities/bebida.entity';
 import { CreateBebidaDto } from './dto/create-bebida.dto';
 import { UpdateBebidaDto } from './dto/update-bebida.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Bebida } from './entities/bebida.entity';
-import { Repository } from 'typeorm';
 
 @Injectable()
 export class BebidasService {
-  @InjectRepository(Bebida)
-  private readonly bebidaRepository: Repository<Bebida>;
+  constructor(
+    @InjectRepository(Bebida)
+    private readonly bebidaRepository: Repository<Bebida>,
+  ) {}
 
+ 
   async create(createBebidaDto: CreateBebidaDto) {
-    const bebida = this.bebidaRepository.create(createBebidaDto);
+    const bebida = this.bebidaRepository.create({
+      ...createBebidaDto,
+      categoria: { id: createBebidaDto.categoriaId }, // relación con categoría
+    });
     return await this.bebidaRepository.save(bebida);
   }
 
+ 
   async findAll() {
-    return await this.bebidaRepository.find();
+    return await this.bebidaRepository.find({
+      relations: ['categoria'], 
+    });
   }
 
   async findOne(id: number) {
-    return await this.bebidaRepository.findOne({ where: { id } });
+    const bebida = await this.bebidaRepository.findOne({
+      where: { id },
+      relations: ['categoria'],
+    });
+
+    if (!bebida) {
+      throw new NotFoundException(`No se encontró la bebida con ID ${id}`);
+    }
+
+    return bebida;
   }
 
   async update(id: number, updateBebidaDto: UpdateBebidaDto) {
-    await this.bebidaRepository.update(id, updateBebidaDto);
-    return await this.bebidaRepository.findOne({ where: { id } });
+    const bebida = await this.bebidaRepository.findOne({ where: { id } });
+    if (!bebida) {
+      throw new NotFoundException(`No se encontró la bebida con ID ${id}`);
+    }
+
+    const updated = this.bebidaRepository.merge(bebida, {
+      ...updateBebidaDto,
+      categoria: updateBebidaDto.categoriaId
+        ? { id: updateBebidaDto.categoriaId }
+        : bebida.categoria,
+    });
+
+    return await this.bebidaRepository.save(updated);
   }
 
+  
   async remove(id: number) {
-    await this.bebidaRepository.delete(id);
-    return `This action removes a #${id} bebida`;
+    const bebida = await this.bebidaRepository.findOne({ where: { id } });
+    if (!bebida) {
+      throw new NotFoundException(`No se encontró la bebida con ID ${id}`);
+    }
+
+    await this.bebidaRepository.remove(bebida);
+    return { message: `La bebida con ID ${id} fue eliminada correctamente.` };
   }
 }
