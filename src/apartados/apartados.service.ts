@@ -27,6 +27,7 @@ export class ApartadosService {
   async findAll() {
     return this.apartadoRepository.find();
   }
+  //buscar por id usuario
 
   async findOne(id: number) {
     return this.apartadoRepository.findOneBy({ id });
@@ -51,5 +52,18 @@ export class ApartadosService {
   async remove(id: number) {
     await this.apartadoRepository.delete(id);
     return `This action removes a #${id} apartado`;
+  }
+    async findByUsuario(usuarioID: number) {
+    return this.apartadoRepository.find({
+      where: { usuarioID: { id: usuarioID } },
+      relations: ['usuarioID', 'bebidasID'],
+    });
+  }
+
+  async findByBebida(bebidasID: number) {
+    return this.apartadoRepository.find({
+      where: { bebidasID: { id: bebidasID } },
+      relations: ['usuarioID', 'bebidasID'],
+    });
   }
 }
