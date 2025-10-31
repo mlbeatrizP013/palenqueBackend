@@ -6,13 +6,13 @@ export class CreateApartadoDto {
   @IsNumber()
   @IsPositive()
   @IsNotEmpty()
-  readonly cantidad: number;
+   cantidad: number;
 
   @IsNumber()
   @IsNotEmpty()
-  readonly usuarioID: number;
+   usuarioID: number;
 
   @IsNumber()
   @IsNotEmpty()
-  readonly bebidasID: number;
+   bebidasID: number;
 }

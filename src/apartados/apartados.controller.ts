@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ApartadosService } from './apartados.service';
 import { CreateApartadoDto } from './dto/create-apartado.dto';
 import { UpdateApartadoDto } from './dto/update-apartado.dto';
@@ -23,7 +32,10 @@ export class ApartadosController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateApartadoDto: UpdateApartadoDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateApartadoDto: UpdateApartadoDto,
+  ) {
     return this.apartadosService.update(+id, updateApartadoDto);
   }
 

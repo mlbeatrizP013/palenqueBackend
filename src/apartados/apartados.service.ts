@@ -1,26 +1,55 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { CreateApartadoDto } from './dto/create-apartado.dto';
 import { UpdateApartadoDto } from './dto/update-apartado.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Apartado } from './entities/apartado.entity';
+import { Repository, DeepPartial } from 'typeorm';
 
 @Injectable()
 export class ApartadosService {
-  create(createApartadoDto: CreateApartadoDto) {
-    return 'This action adds a new apartado';
+  @InjectRepository(Apartado)
+  private readonly apartadoRepository: Repository<Apartado>;
+
+  async create(createApartadoDto: CreateApartadoDto) {
+    const { usuarioID, bebidasID, ...rest } = createApartadoDto;
+
+    const apartado = this.apartadoRepository.create({
+      ...rest,
+      ...(usuarioID && { usuarioID: { id: usuarioID } }),
+      ...(bebidasID && { bebidasID: { id: bebidasID } }),
+    });
+
+    await this.apartadoRepository.save(apartado);
+    return apartado;
   }
 
-  findAll() {
-    return `This action returns all apartados`;
+  async findAll() {
+    return this.apartadoRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} apartado`;
+  async findOne(id: number) {
+    return this.apartadoRepository.findOneBy({ id });
   }
 
-  update(id: number, updateApartadoDto: UpdateApartadoDto) {
-    return `This action updates a #${id} apartado`;
+  async update(id: number, updateApartadoDto: UpdateApartadoDto) {
+    const { usuarioID, bebidasID, ...rest } = updateApartadoDto;
+
+    const updatePayload: DeepPartial<Apartado> = { ...rest };
+    
+    if (usuarioID) {
+      updatePayload.usuarioID = { id: usuarioID };
+    }
+    if (bebidasID) {
+      updatePayload.bebidasID = { id: bebidasID };
+    }
+
+    await this.apartadoRepository.update(id, updatePayload);
+    return this.apartadoRepository.findOneBy({ id });
   }
 
-  remove(id: number) {
+  async remove(id: number) {
+    await this.apartadoRepository.delete(id);
     return `This action removes a #${id} apartado`;
   }
 }
