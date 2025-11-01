@@ -30,13 +30,13 @@ export class ApartadosController {
   findOne(@Param('id') id: string) {
     return this.apartadosService.findOne(+id);
   }
-  @Get('usuario:id')
+  @Get('usuario/:id')
   findByUsuario(@Param('id') id: string) {
-    return this.apartadosService.findOne(+id);
+    return this.apartadosService.findByUsuario(+id);
   }
-  @Get('bebida:id')
+  @Get('bebida/:id')
   findByBebida(@Param('id') id: string) {
-    return this.apartadosService.findOne(+id);
+    return this.apartadosService.findByBebida(+id);
   }
 
   @Patch(':id')
