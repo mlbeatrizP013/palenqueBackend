@@ -67,4 +67,10 @@ export class UsuarioService {
   async remove(id: number) {
     return await this.usuarioRepository.delete(id);
   }
+    async findByVisita(visitaId: number) {
+    return await this.usuarioRepository.find({
+      where: { diaCata: { id: visitaId } },
+      relations: ['diaCata'],
+    });
+  }
 }
