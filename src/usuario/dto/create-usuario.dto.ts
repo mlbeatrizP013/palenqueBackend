@@ -13,7 +13,8 @@ export class CreateUsuarioDto {
 
   @IsString()
   telefono: string;
-
+  @IsNumber()
+  status: number;
   @IsString()
   genero: string;
   @IsNumber()

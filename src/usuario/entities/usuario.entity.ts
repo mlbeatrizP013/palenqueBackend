@@ -18,6 +18,8 @@ export class Usuario {
 
   @Column()
   genero: string;
+  @Column()
+  status: number;
 
   @CreateDateColumn()
   CreatedAt: Date;
