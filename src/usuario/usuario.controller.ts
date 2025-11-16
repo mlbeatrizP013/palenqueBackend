@@ -17,6 +17,11 @@ export class UsuarioController {
     return this.usuarioService.findAll();
   }
 
+  @Get('visita/:visitaId')
+  findByVisita(@Param('visitaId') visitaId: string) {
+    return this.usuarioService.findByVisita(+visitaId);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usuarioService.findOne(+id);
@@ -30,9 +35,5 @@ export class UsuarioController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usuarioService.remove(+id);
-  }
-  @Get('visita/:visitaId')
-  findByVisita(@Param('visitaId') visitaId: string) {
-    return this.usuarioService.findByVisita(+visitaId);
   }
 }

@@ -1,6 +1,6 @@
 import { Apartado } from "src/apartados/entities/apartado.entity";
 import { DiaCata } from "src/dia-cata/entities/dia-cata.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, JoinColumn } from "typeorm";
 
 @Entity()
 export class Usuario {
@@ -23,8 +23,9 @@ export class Usuario {
 
   @CreateDateColumn()
   CreatedAt: Date;
-  @ManyToOne(() => DiaCata, (diaCata) => diaCata.usuarios)
-  diaCata: DiaCata;
+  @ManyToOne(() => DiaCata, (diaCata) => diaCata.usuarios, { nullable: true, onDelete: 'SET NULL' })
+  @JoinColumn({ name: 'dia_cata_id' })
+  diaCata: DiaCata | null;
   @OneToMany(() => Apartado, (apartado) => apartado.usuarioID)
   apartados: Apartado[];
 }
