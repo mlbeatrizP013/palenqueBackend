@@ -5,14 +5,25 @@ export class InfoHome {
     @PrimaryGeneratedColumn()
     id: number;
     @Column()
-    title: string;
+    historia: string;
 
     @Column()
-    content: string;
+    vision: string;
 
     @Column()
     imageUrl: string;
-
+    @Column()
+    maestroMezcal: string;
+    @Column()
+    mision: string;
+    @Column()
+    valores: string;
+    @Column()
+    normasProduccion: string;
+    @Column()
+    numeroContacto: number;
+    @Column()
+    ubicacion: string;
     @CreateDateColumn()
     createdAt: Date;
 

@@ -1,12 +1,30 @@
-import { IsNotEmpty } from "class-validator";
+import { IsString, IsNumber, IsUrl } from 'class-validator';
 
 export class CreateInfoHomeDto {
-    @IsNotEmpty()
-    title: string;
-    @IsNotEmpty()
-    content: string;
-    @IsNotEmpty()
-    imageUrl: string
-    
-    
+  @IsString()
+  historia: string;
+
+  @IsString()
+  vision: string;
+
+  @IsUrl()
+  imageUrl: string;
+
+  @IsString()
+  maestroMezcal: string;
+
+  @IsString()
+  mision: string;
+
+  @IsString()
+  valores: string;
+
+  @IsString()
+  normasProduccion: string;
+
+  @IsNumber()
+  numeroContacto: number;
+
+  @IsString()
+  ubicacion: string;
 }
