@@ -16,7 +16,7 @@ export class Bebida {
     precio: number;
     @Column()
     stock: number;
-    @Column()
+    @Column({ type: 'longtext' })
     imagen: string
     @ManyToOne(() => Categoria, (categoria) => categoria.bebidas)
     categoria: Categoria;

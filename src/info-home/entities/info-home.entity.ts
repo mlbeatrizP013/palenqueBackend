@@ -10,8 +10,9 @@ export class InfoHome {
     @Column()
     vision: string;
 
-    @Column()
+    @Column({ type: 'longtext' })
     imageUrl: string;
+
     @Column()
     maestroMezcal: string;
     @Column()
