@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsUrl } from 'class-validator';
+import { IsString, IsNumber, IsUrl, isString } from 'class-validator';
 
 export class CreateInfoHomeDto {
   @IsString()
@@ -7,7 +7,7 @@ export class CreateInfoHomeDto {
   @IsString()
   vision: string;
 
-  @IsUrl()
+  @IsString()
   imageUrl: string;
 
   @IsString()

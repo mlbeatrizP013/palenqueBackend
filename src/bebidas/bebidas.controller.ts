@@ -31,4 +31,9 @@ export class BebidasController {
   remove(@Param('id') id: string) {
     return this.bebidasService.remove(+id);
   }
+
+  @Get('byCategoria/:categoriaId')
+  findByCategoria(@Param('categoriaId') categoriaId: string) {
+    return this.bebidasService.findByCategoria(+categoriaId);
+  }
 }

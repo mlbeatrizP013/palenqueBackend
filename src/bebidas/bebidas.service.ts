@@ -67,4 +67,11 @@ export class BebidasService {
     await this.bebidaRepository.remove(bebida);
     return { message: `La bebida con ID ${id} fue eliminada correctamente.` };
   }
+
+  async findByCategoria(categoriaId: number) {
+    return await this.bebidaRepository.find({
+      where: { categoria: { id: categoriaId } },
+      relations: ['categoria'],
+    });
+  }
 }
