@@ -25,12 +25,17 @@ export class ApartadosService {
   }
 
   async findAll() {
-    return this.apartadoRepository.find();
+    return this.apartadoRepository.find({
+      relations: ['usuarioID', 'bebidasID'],
+    });
   }
   //buscar por id usuario
 
   async findOne(id: number) {
-    return this.apartadoRepository.findOneBy({ id });
+    return this.apartadoRepository.findOne({
+      where: { id },
+      relations: ['usuarioID', 'bebidasID'],
+    });
   }
 
   async update(id: number, updateApartadoDto: UpdateApartadoDto) {
